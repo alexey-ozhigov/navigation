@@ -68,3 +68,8 @@ install(
     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
     RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+add_service_files(
+    FILES
+    OptimizeGlobalPlan.srv
+)
