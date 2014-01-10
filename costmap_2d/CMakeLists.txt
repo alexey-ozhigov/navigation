@@ -20,7 +20,7 @@ find_package(catkin REQUIRED
             voxel_grid
         )
 
-find_package(PCL REQUIRED)
+find_package(PCL 1.7 REQUIRED)
 find_package(Eigen REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system thread)
 include_directories(
