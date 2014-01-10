@@ -42,6 +42,10 @@
 #include <boost/thread.hpp>
 
 #include <geometry_msgs/Twist.h>
+#include <sstream>
+#include <fstream>
+
+bool planWritten = false;
 
 namespace move_base {
 
@@ -500,6 +504,17 @@ namespace move_base {
     if(!planner_->makePlan(start, goal, plan) || plan.empty()){
       ROS_DEBUG_NAMED("move_base","Failed to find a  plan to point (%.2f, %.2f)", goal.pose.position.x, goal.pose.position.y);
       return false;
+    }
+    else {
+        if (! planWritten) {
+            std::ofstream f("/home/alex/Desktop/plan.txt", std::ios::out | std::ios::trunc);
+            f << "Point# X Y Z R P Y" << std::endl;
+            for (int i = 0; i < plan.size(); i++)
+                f << i << " " << plan[i].pose.position.x << " " << plan[i].pose.position.y << " " << plan[i].pose.position.z
+                    << " " << plan[i].pose.orientation.x << " " << plan[i].pose.orientation.y << " " << plan[i].pose.orientation.y << std::endl;
+            f.close();
+            planWritten = true;
+        }
     }
 
     return true;
